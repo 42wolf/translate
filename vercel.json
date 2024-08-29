@@ -1,18 +1,22 @@
 {
+  "version": 2,
   "builds": [
-    { "src": "api/translate.js", "use": "@vercel/node" },
-    { "src": "public/**/*", "use": "@vercel/static" }
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "public"
+      }
+    },
+    {
+      "src": "api/translate.js",
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
-    { "src": "/api/translate", "dest": "/api/translate.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
-  ]
-  "public": "public",
-  "rewrites": [
     {
-      "source": "/api/translate",
-      "destination": "/api/translate.js"
+      "src": "/api/translate",
+      "dest": "/api/translate.js"
     }
   ]
 }
-
