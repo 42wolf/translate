@@ -1,23 +1,17 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "public"
-        }
-      },
-      {
-        "src": "api/translate.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/translate",
-        "dest": "/api/translate.js"
-      }
-    ]
+    "name": "address-translator",
+    "version": "1.0.0",
+    "description": "A simple address translation web app",
+    "scripts": {
+      "start": "echo 'No start script specified'",
+      "build": "echo 'No build script specified'"
+    },
+    "dependencies": {
+      "node-fetch": "^2.6.7"
+    },
+    "devDependencies": {},
+    "engines": {
+      "node": ">=14.0.0"
+    }
   }
   
