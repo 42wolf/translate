@@ -54,7 +54,6 @@ textarea {
     border: 1px solid #ccc;
     outline: none;
     transition: border-color 0.3s;
-    font-family: 'Roboto', sans-serif;
     resize: none;
     box-sizing: border-box;
 }

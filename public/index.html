@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>中文地址翻译器</title>
-    <link href="/styles.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
     <h1>中文地址翻译器</h1>
@@ -14,7 +14,7 @@
             <textarea id="chineseAddress" placeholder="请输入中文地址..." oninput="validateAddress()"></textarea>
         </div>
         <div class="translate-button-container">
-            <button class="translate-button" onclick="translateAddress()">&#8594;</button>
+            <button class="translate-button" onclick="translateAddress()" id="translateButton">➔</button>
         </div>
         <div class="output-area">
             <textarea id="englishAddress" placeholder="翻译后的英文地址将显示在这里……点击即可复制" readonly onclick="copyToClipboard()"></textarea>
@@ -27,6 +27,6 @@
     <div class="privacy-note">
         <p>本站点并不保存您的地址信息，请放心使用。</p>
     </div>
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
