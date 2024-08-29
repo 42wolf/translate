@@ -1,7 +1,7 @@
 {
   "builds": [
     { "src": "api/translate.js", "use": "@vercel/node" },
-    { "src": "public/index.html", "use": "@vercel/static" }
+    { "src": "public/*", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/api/translate", "dest": "/api/translate.js" },
