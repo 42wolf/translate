@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文地址翻译器</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>中文地址翻译器</h1>
+    <h2>把你的中文地址翻译成英文</h2>
+    <div class="container">
+        <div class="input-area">
+            <textarea id="chineseAddress" placeholder="请输入中文地址..." oninput="validateAddress()"></textarea>
+        </div>
+        <div class="translate-button-container">
+            <button class="translate-button" onclick="translateAddress()">&#8594;</button>
+        </div>
+        <div class="output-area">
+            <textarea id="englishAddress" placeholder="翻译后的英文地址将显示在这里……点击即可复制" readonly onclick="copyToClipboard()"></textarea>
+        </div>
+    </div>
+    <div class="example">
+        <p><strong>示例:</strong> 输入地址“<strong>北京市朝阳区北四环东路65号(望京SOHO)大厦A座402室</strong>”将翻译为“<strong>Room 402, Building A, Wangjing SOHO, No. 65 North Fourth Ring East Road, Chaoyang District, Beijing</strong>”。</p>
+        <p>请输入详细的中文地址以进行翻译。</p>
+    </div>
+    <div class="privacy-note">
+        <p>本站点并不保存您的地址信息，请放心使用。</p>
+    </div>
+    <script>
+        function validateAddress() {
+            const input = document.getElementById('chineseAddress').value;
+            const button = document.querySelector('.translate-button');
+            const isValid = /[省市县区]/.test(input.trim());
+            
+            if (isValid) {
+                button.disabled = false;
+                button.style.backgroundColor = '#6e8efb';
+            } else {
+                button.disabled = true;
+                button.style.backgroundColor = '#ccc';
+            }
+        }
+
+        async function translateAddress() {
+            const text = document.getElementById('chineseAddress').value;
+            if (!text.trim()) {
+                document.getElementById('englishAddress').value = '';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/translate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+
+                const data = await response.json();
+                document.getElementById('englishAddress').value = data.translatedText;
+
+            } catch (error) {
+                document.getElementById('englishAddress').value = '翻译失败，请稍后再试。';
+                console.error('翻译错误:', error);
+            }
+        }
+
+        function copyToClipboard() {
+            const textArea = document.getElementById('englishAddress');
+            textArea.select();
+            document.execCommand('copy');
+            alert('英文地址已复制到剪贴板！');
+        }
+    </script>
+</body>
+</html>
