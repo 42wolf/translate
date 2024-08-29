@@ -7,7 +7,7 @@ async function translateAddress() {
 
     const apiKey = 'YOUR_LINGVANEX_API_KEY';  // 替换为实际的 API 密钥
     const endpoint = 'https://api-gl.lingvanex.com/language/translate/v2';
-    
+
     try {
         const response = await fetch(endpoint, {
             method: 'POST',
@@ -29,6 +29,7 @@ async function translateAddress() {
         const data = await response.json();
         console.log('API response:', data);  // 调试用，查看完整响应
 
+        // 检查 data 对象的结构
         if (data && data.data && data.data.translations && data.data.translations.length > 0) {
             const translatedText = data.data.translations[0].translatedText;
             document.getElementById('englishAddress').value = translatedText;
