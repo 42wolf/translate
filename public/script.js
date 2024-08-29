@@ -1,15 +1,16 @@
 function validateAddress() {
     const input = document.getElementById('chineseAddress').value;
     const button = document.querySelector('.translate-button');
-    const isValid = /[\u4e00-\u9fa5]/.test(input);
-
+    
+    // 移除对地址格式的限制，允许任何内容
+    const isValid = input.trim().length > 0;
+    
     if (isValid) {
         button.disabled = false;
         button.style.backgroundColor = '#6e8efb';
     } else {
         button.disabled = true;
         button.style.backgroundColor = '#ccc';
-        alert("本翻译器只能够翻译地址信息，请输入包含省、市、县或区的地址。");
     }
 }
 
@@ -20,17 +21,25 @@ async function translateAddress() {
         return;
     }
 
+    const apiKey = 'YOUR_LINGVANEX_API_KEY';
+    const endpoint = 'https://api-gl.lingvanex.com/language/translate/v2';
+
     try {
-        const response = await fetch('/api/translate', {
+        const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
             },
-            body: JSON.stringify({ text }),
+            body: JSON.stringify({
+                target: 'en',
+                q: [text]
+            })
         });
 
         const data = await response.json();
-        const translatedText = data.translations[0].translatedText;
+        const translatedText = data.data.translations[0].translatedText;
         document.getElementById('englishAddress').value = translatedText;
 
     } catch (error) {
