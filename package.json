@@ -1,0 +1,12 @@
+{
+    "name": "my-translate-app",
+    "version": "1.0.0",
+    "scripts": {
+      "start": "node api/translate.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "node-fetch": "^2.6.1"
+    }
+  }
+  

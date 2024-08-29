@@ -1,19 +1,35 @@
-export default async function handler(req, res) {
+const fetch = require('node-fetch');
+
+module.exports = async (req, res) => {
     const { text } = req.body;
 
-    const response = await fetch('https://api-gl.lingvanex.com/language/translate/v2', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.API_KEY}`
-        },
-        body: JSON.stringify({
-            q: [text],
-            target: 'en'
-        }),
-    });
+    if (!text) {
+        return res.status(400).json({ error: 'Missing text' });
+    }
 
-    const data = await response.json();
-    res.status(200).json(data.data);
-}
+    const apiKey = process.env.LINGVANEX_API_KEY;
+    const endpoint = 'https://api-gl.lingvanex.com/language/translate/v2';
+
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                target: 'en',
+                q: [text]
+            })
+        });
+
+        const data = await response.json();
+        const translatedText = data.translations[0].translatedText;
+
+        res.status(200).json({ translatedText });
+
+    } catch (error) {
+        res.status(500).json({ error: 'Translation failed' });
+    }
+};
