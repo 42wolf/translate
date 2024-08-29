@@ -1,12 +1,23 @@
 {
-    "name": "my-translate-app",
-    "version": "1.0.0",
-    "main": "api/translate.js",
-    "scripts": {
-      "start": "vercel dev"
-    },
-    "dependencies": {
-      "node-fetch": "^2.6.1"
-    }
+    "version": 2,
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "public"
+        }
+      },
+      {
+        "src": "api/translate.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/translate",
+        "dest": "/api/translate.js"
+      }
+    ]
   }
   
