@@ -1,11 +1,11 @@
 {
     "name": "my-translate-app",
     "version": "1.0.0",
+    "main": "api/translate.js",
     "scripts": {
-      "start": "node api/translate.js"
+      "start": "vercel dev"
     },
     "dependencies": {
-      "express": "^4.17.1",
       "node-fetch": "^2.6.1"
     }
   }
